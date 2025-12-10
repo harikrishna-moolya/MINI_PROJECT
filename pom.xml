@@ -15,13 +15,8 @@
             <version>4.25.0</version>
         </dependency>
 
-        <!-- TestNG -->
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>7.8.0</version>
-            <scope>test</scope>
-        </dependency>
+     
+       
 
         <!-- WebDriverManager -->
         <dependency>
@@ -62,11 +57,9 @@
             <artifactId>commons-io</artifactId>
             <version>2.12.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.aventstack</groupId>
-            <artifactId>extentreports</artifactId>
-            <version>3.1.5</version>
-        </dependency>
+       
+
+           <!-- TestNG -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
