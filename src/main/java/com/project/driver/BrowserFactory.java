@@ -1,6 +1,5 @@
 package com.project.driver;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -18,38 +17,40 @@ public class BrowserFactory {
 
         if (browser.equalsIgnoreCase("chrome")) {
 
-            // Automatically downloads correct ChromeDriver
-            WebDriverManager.chromedriver().setup();
-
             ChromeOptions options = new ChromeOptions();
 
-            // ---- REQUIRED FOR JENKINS ----
+            // Jenkins-safe temporary Chrome profile
+            String tempProfile = System.getProperty("user.dir") + "/chrome-profile";
+            options.addArguments("--user-data-dir=" + tempProfile);
+            options.addArguments("--disk-cache-dir=" + tempProfile + "/cache");
+
+            // Headless mode for Jenkins (safe for local too)
             options.addArguments("--headless=new");
+            options.addArguments("--window-size=1920,1080");
+            options.addArguments("--disable-gpu");
             options.addArguments("--no-sandbox");
             options.addArguments("--disable-dev-shm-usage");
-            options.addArguments("--disable-gpu");
-            options.addArguments("--remote-allow-origins=*");
-            options.addArguments("--window-size=1920,1080");
 
-            // Disable notifications + password popups
+            // Incognito mode + disable password manager
+            options.addArguments("--incognito");
+
             Map<String, Object> prefs = new HashMap<>();
             prefs.put("credentials_enable_service", false);
             prefs.put("profile.password_manager_enabled", false);
-            prefs.put("profile.default_content_setting_values.notifications", 2);
             options.setExperimentalOption("prefs", prefs);
 
-            // Incognito mode
-            options.addArguments("--incognito");
+            // Disable password breach warnings
+            options.addArguments("--disable-features=PasswordManagerEnabled,DetectionOfCompromisedPasswords,PasswordChange");
 
-            // Disable password-related warnings
-            options.addArguments("--disable-features=PasswordManagerEnabled");
+            // Disable popups, notifications
             options.addArguments("--disable-save-password-bubble");
+            options.addArguments("--disable-password-manager-reauthentication");
+            options.addArguments("--disable-notifications");
             options.addArguments("--disable-popup-blocking");
             options.addArguments("--disable-infobars");
 
-            // Temporary profile (works in Jenkins)
-            String tempProfile = System.getProperty("java.io.tmpdir") + "/chromeProfile";
-            options.addArguments("user-data-dir=" + tempProfile);
+            // Required for newer Chrome versions
+            options.addArguments("--remote-allow-origins=*");
 
             return new ChromeDriver(options);
         }
