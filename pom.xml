@@ -11,9 +11,10 @@
         <!-- Selenium -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-devtools-v142</artifactId>
-            <version>4.25.0</version>
+            <artifactId>selenium-java</artifactId>
+            <version>4.23.0</version>
         </dependency>
+
 
 
    
