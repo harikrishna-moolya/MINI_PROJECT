@@ -2,7 +2,7 @@ package com.project.utils;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -14,14 +14,17 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onStart(ITestContext context) {
-        ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter("test-output/ExtentReport.html");
+        // Spark Reporter (new HTML reporter)
+        ExtentSparkReporter spark = new ExtentSparkReporter("test-output/ExtentReport.html");
+
         extent = new ExtentReports();
-        extent.attachReporter(htmlReporter);
+        extent.attachReporter(spark);
     }
 
     @Override
     public void onTestStart(ITestResult result) {
-        ExtentTest extentTest = extent.createTest(result.getMethod().getMethodName());
+        ExtentTest extentTest =
+                extent.createTest(result.getMethod().getMethodName());
         test.set(extentTest);
     }
 
