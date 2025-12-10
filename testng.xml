@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Ecommerce Suite" parallel="tests" thread-count="2">
+    <test name="ChromeTests">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.project.tests.LoginTests"/>
+            <class name="com.project.tests.ProductTests"/>
+            <class name="com.project.tests.CartTests"/>
+            <class name="com.project.tests.CheckoutTests"/>
+        </classes>
+    </test>
+
+    <test name="FirefoxSanity">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="com.project.tests.LoginTests"/>
+        </classes>
+    </test>
+</suite>
