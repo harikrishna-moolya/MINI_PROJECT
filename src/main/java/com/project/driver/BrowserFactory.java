@@ -21,8 +21,6 @@ public class BrowserFactory {
 
             // Jenkins-safe temporary Chrome profile
             String tempProfile = System.getProperty("user.dir") + "/chrome-profile";
-            options.addArguments("--user-data-dir=" + tempProfile);
-            options.addArguments("--disk-cache-dir=" + tempProfile + "/cache");
 
             // Headless mode for Jenkins (safe for local too)
             options.addArguments("--headless=new");
